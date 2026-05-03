@@ -17,6 +17,78 @@
   <meta name="theme-color" content="#000000">
 </head>
 <body>
+  <!-- 新增顶栏导航 -->
+  <header class="heo-header">
+    <nav class="heo-nav">
+      <div class="heo-nav-logo">
+        <a href="/">🎵Music</a>
+      </div>
+      <div class="heo-nav-menu">
+        <a href="https://home.asoi.qzz.io" target="_blank" class="nav-item">主页</a>
+        <a href="https://blog.asoi.qzz.io" target="_blank" class="nav-item">博客</a>
+        <a href="https://nav.asoi.qzz.io" target="_blank" class="nav-item">导航</a>
+        <button onclick="openNotice()" class="nav-btn">关于</button>
+        <!-- 改歌单按钮 -->
+        <button id="change-playlist-btn" class="nav-btn">修改歌单</button>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- 公告弹窗结构 -->
+  <div class="modal-overlay" id="noticeModal">
+    <div class="modal-box">
+      <div class="modal-contentt">
+    <h3>致每一位听音乐的你</h3>
+    <p>欢迎来到🎵Music我是Asoi，很高兴能与你在旋律中相遇。</p>
+    <p>音乐是无声的陪伴，是治愈的良药，它能接住你所有的情绪，也能陪你走过每一段时光。</p>
+    <p>愿每一段旋律，都能治愈你的疲惫；愿每一次聆听，都能给你前行的力量。</p>
+    <p class="footer-signature">——用音乐感染人心，治愈相伴。 ✨</p>
+	<p>C丨鲸落 我喜欢的音乐ID=2093426713<br>
+	   C丨鲸落   纯 音 乐  ID=14226286173<br>
+	   C丨鲸落 常 听   ID=13836362700</p>
+    <p class="author">asoi | 联系邮箱：<a href="mailto:asoi013@foxmail.com">asoi013@foxmail.com</a></p>
+      </div>
+      <button class="close-btn" onclick="closeNotice()">关闭</button>
+    </div>
+  </div>
+  
+  
+  <!-- 改歌单弹窗 -->
+  <div class="playlist-modal" id="playlist-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3>自定义播放歌单</h3>
+      <form id="playlist-form">
+        <div class="form-group">
+          <label for="server">音乐平台</label>
+          <select id="server" required>
+            <option value="netease">网易云音乐</option>
+            <option value="tencent">腾讯音乐</option>
+            <option value="kugou">酷狗音乐</option>
+            <option value="xiami">小米音乐</option>
+            <option value="baidu">百度音乐</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="playlist-id">歌单ID</label>
+          <input type="text" id="playlist-id" placeholder="例如：8668419170" required>
+        </div>
+        <div class="form-group">
+          <label for="playlist-type">类型</label>
+          <select id="playlist-type">
+            <option value="playlist">歌单</option>
+            <option value="song">单曲</option>
+            <option value="album">专辑</option>
+            <option value="artist">歌手</option>
+          </select>
+        </div>
+        <button type="submit" class="submit-btn">确认修改</button>
+      </form>
+    </div>
+  </div>
+
+  
 <div id="heoMusic-page">
 </div>
 <script src="./config.js"></script>
