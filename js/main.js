@@ -430,3 +430,79 @@ window.addEventListener('resize', function() {
 // 调用初始化
 heo.init();
 
+
+// ========== 修复：改歌单功能（变量名不冲突） ==========
+document.addEventListener('DOMContentLoaded', function() {
+  // 改名：playlistModal
+  const playlistModal = document.getElementById('playlist-modal');
+  const openBtn = document.getElementById('change-playlist-btn');
+  const closeBtn = document.querySelector('.close-modal');
+  const form = document.getElementById('playlist-form');
+
+  // 打开弹窗
+  openBtn.addEventListener('click', function() {
+    playlistModal.style.display = 'flex';
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('server')) {
+      document.getElementById('server').value = params.get('server');
+    }
+    if (params.get('id')) {
+      document.getElementById('playlist-id').value = params.get('id');
+    }
+    if (params.get('type')) {
+      document.getElementById('playlist-type').value = params.get('type');
+    }
+  });
+
+  // 关闭弹窗
+  closeBtn.addEventListener('click', function() {
+    playlistModal.style.display = 'none';
+  });
+
+  // 点击外层关闭
+  window.addEventListener('click', function(e) {
+    if (e.target === playlistModal) {
+      playlistModal.style.display = 'none';
+    }
+  });
+
+  // 提交
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const server = document.getElementById('server').value;
+    const playlistId = document.getElementById('playlist-id').value;
+    const playlistType = document.getElementById('playlist-type').value;
+    const newUrl = `${window.location.origin}${window.location.pathname}?id=${playlistId}&server=${server}&type=${playlistType}`;
+    window.location.href = newUrl;
+  });
+
+  heo.initScrollEvents();
+});
+
+// 媒体会话（不动）
+heo.setupMediaSessionHandlers = function (aplayer) {
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.setActionHandler('play', () => aplayer.play());
+    navigator.mediaSession.setActionHandler('pause', () => aplayer.pause());
+    navigator.mediaSession.setActionHandler('seekbackward', null);
+    navigator.mediaSession.setActionHandler('seekforward', null);
+    navigator.mediaSession.setActionHandler('previoustrack', () => aplayer.skipBack());
+    navigator.mediaSession.setActionHandler('nexttrack', () => aplayer.skipForward());
+  }
+};
+
+// ========== 修复：公告弹窗（变量名独立） ==========
+function openNotice() {
+  document.getElementById("noticeModal").style.display = "flex";
+}
+function closeNotice() {
+  document.getElementById("noticeModal").style.display = "none";
+}
+
+// 修复：点击遮罩关闭公告
+const noticeModal = document.getElementById("noticeModal");
+noticeModal.addEventListener("click", function(e) {
+  if (e.target === noticeModal) {
+    closeNotice();
+  }
+});
